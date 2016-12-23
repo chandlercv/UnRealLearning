@@ -15,11 +15,29 @@ AMyActor::AMyActor()
 	
 }
 
+
+
 void AMyActor::PostInitProperties()
 {
 	Super::PostInitProperties();
+
+	CalculateValues();
+	
+}
+
+void AMyActor::CalculateValues()
+{
 	DamagePerSecond = TotalDamage / DamageTimeInSeconds;
 }
+
+#if WITH_EDITOR
+void AMyActor::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+{
+	CalculateValues();
+
+	Super::PostEditChangeProperty(PropertyChangedEvent);
+}
+#endif
 
 // Called when the game starts or when spawned
 void AMyActor::BeginPlay()
